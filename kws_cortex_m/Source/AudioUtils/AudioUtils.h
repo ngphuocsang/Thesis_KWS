@@ -1,3 +1,4 @@
+#pragma once
 #include <cstdint>
 
 using namespace std;
@@ -7,7 +8,7 @@ class AudioUtils
 {
 private:
     /* data */
-
+    uint8_t SetSysClock_PLL_HSE_200MHz();
 public:
     AudioUtils();
     ~AudioUtils();

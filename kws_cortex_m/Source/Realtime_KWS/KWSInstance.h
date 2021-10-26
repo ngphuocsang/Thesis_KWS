@@ -1,7 +1,9 @@
+#pragma once
 #include <cstring>
 #include <vector>
 #include <string>
 #include "KWS.h"
+#include "AudioUtils.h"
 
 using namespace std;
 
@@ -9,8 +11,9 @@ class KWSInstance : public KWS
 {
 private:
     static KWSInstance *_instance;
-    KWSInstance();
-    KWSInstance(int recording_window, int sliding_window_len, std::vector<std::string>& output_class, int detection_threshold);
+    vector<string>output_class_;
+    int detect_threshold;
+    KWSInstance(int recordingWindow, int slidingWindowLen, std::vector<std::string>& outputClass, int detectionThreshold);
     ~KWSInstance();
 public:
     static KWSInstance* getInstance();
@@ -21,7 +24,9 @@ public:
     void SetAudioBufferEmpty(void);
     void ConvertStereoBufToMonoBuffer(void);
 
-    
+    vector<int16_t> audio_in_buffer;
+    vector<int16_t> audio_accum_buffer;
+    std::unique_ptr<AudioUtils> audio_utils;
 };
 
 
