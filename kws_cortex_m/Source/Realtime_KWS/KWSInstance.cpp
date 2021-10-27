@@ -22,7 +22,7 @@ KWSInstance::KWSInstance(int recordingWindow, int slidingWindowLen, std::vector<
     audio_in_buffer = vector<int16_t>(AUDIO_BLOCK_SIZE << 1);
     audio_accum_buffer = vector<int16_t>(AUDIO_ACCUM_BUFFER_SIZE << 1);
 
-    this->audio_utils = new AudioUtils();
+    this->audio_utils = unique_ptr<AudioUtils>(new AudioUtils());
 }
 
 void KWSInstance::StartKWS(void){
@@ -51,3 +51,24 @@ void KWSInstance::RunKWS(void){
     }
 }
 
+void KWSInstance::StartRecording(void){
+    return _instance->audio_utils->startAudioRecording((uint16_t *)audio_in_buffer.data(), audio_in_buffer.size());
+}
+
+void KWSInstance::StopRecording(void){
+    return _instance->audio_utils->stopAudioRecording();
+}
+
+bool KWSInstance::IsAudioBufferAvailable(void){
+    return _instance->audio_utils->isAudioAvailable();
+}
+
+void KWSInstance::SetAudioBufferEmpty(void){
+    getInstance()->audio_utils->setAudioBufferEmpty();
+}
+
+void KWSInstance::ConvertStereoBufToMonoBuffer(void){
+    return this->audio_utils->convertStereoToMono(this->audio_accum_buffer.data(),
+            this->mono_audio_buffer.data(),
+            this->audio_accum_buffer.size() * sizeof(int16_t));
+}

@@ -2,8 +2,10 @@
 #include <cstring>
 #include <vector>
 #include <string>
+#include <memory>
 #include "KWS.h"
 #include "AudioUtils.h"
+
 
 using namespace std;
 
@@ -22,6 +24,7 @@ public:
     void StartRecording(void);
     void StopRecording(void);
     void SetAudioBufferEmpty(void);
+    bool IsAudioBufferAvailable(void);
     void ConvertStereoBufToMonoBuffer(void);
 
     vector<int16_t> audio_in_buffer;
@@ -30,4 +33,4 @@ public:
 };
 
 
-extern KWSInstance* KWSInstancePtr;
+// extern KWSInstance* KWSInstancePtr;

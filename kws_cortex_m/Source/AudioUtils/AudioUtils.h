@@ -20,6 +20,7 @@ public:
     void setAudioBufferFull(void);
     bool isAudioAvailable(void);
     bool isAudioUnavailable(void);
+    void convertStereoToMono(int16_t* bufferIn, int16_t* bufferOut, uint32_t numOfBytes);
 
     uint32_t audio_rec_buffer_state;
 };
